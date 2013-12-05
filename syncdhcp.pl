@@ -79,6 +79,7 @@ sub start_services {
 # Main 
 {
     # Just show the status of the current node and what would happen
+    # If it is not the current master, it will copy the file.
     if ( $status ) {
         is_master();
         if ( is_master() == 1 ) {
