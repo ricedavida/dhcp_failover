@@ -10,17 +10,27 @@ DHCP servers running at the same time.  In addition to this problem, this solves
 files between the systems (which is handy in cases like dhcpd.leases, but can be used for other such purposes)
 
 Setup: (each will need to be done on each server)
-   1. Install keepalived
-   2. Replace the keepalived.conf file with the one provided. (modifying the file as is necessary)
-   3. Move the dhcp_stop.sh dhcp_start.sh scripts to the keepalived folder (same level as keepalived.conf)
-   4. Set the requirements in syncfiles.conf and move it someplace onto each system
-   5. Move the syncdhcp.pl perl script onto each system
+    1. Install keepalived
+    2. Replace the keepalived.conf file with the one provided. (modifying the file as is necessary)
+    3. Move the dhcp_stop.sh dhcp_start.sh scripts to the keepalived folder (same level as keepalived.conf)
+    4. Set the requirements in syncfiles.conf and move it someplace onto each system
+    5. Move the syncdhcp.pl perl script onto each system
 
 Running the script:
-   1. The keepalived stuff will be handled by the syncdhcp.pl (as long as the service field is set to keepalived)
-   2. syncdhcp.pl was designed to be run as a cronjob (originally set for 5 minutes, but can be adjusted)
+    1. The keepalived stuff will be handled by the syncdhcp.pl (as long as the service field is set to keepalived)
+    2. syncdhcp.pl was designed to be run as a cronjob (originally set for 5 minutes, but can be adjusted)
 
 Suggestion: First use of syncdhcp.pl should be manual so that methodology is understood.
+
+Time trials:
+    *these tests are very recreatable and simulate real world failures*
+    Timing the Reboot - 
+    Because timing a system reboot is difficult, I timed the reboot with a stop watch and waited until I could
+    SSH into the system, as this is a similar service that would be started at boot time (on the system I am testing)
+
+    Timing the Failover -
+    Timing this was a bit easier, I could simply stop the keepalived service on the one server while pinging the VIP, 
+    and take the longest response time. 
 
 
 
